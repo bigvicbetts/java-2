@@ -2,46 +2,48 @@ package burger_shop;
 
 import java.util.ArrayList;
 
-public class Burger {
-
-    Bread bread;
-    Meat meat;
-    String[] toppings = {"lettuce", "tomatoes", "onions", "pickles", "cheese", "bacon", "ketchup", "mustard", "mayo"};
-    int maxToppings = 2;
-    int toppingsAdded = 0;
-    ArrayList<String> burgerToppings = new ArrayList<>();
+abstract class Burger {
+    String bread;
+    String meat;
+    String name;
+    ArrayList<String> possibleToppings;
+    ArrayList<String> burgerToppings;
+    int maxToppings;
     double plainPrice;
     double perToppingPrice;
 
-    public Burger(Bread bread, Meat meat, int maxToppings, double plainPrice, double perToppingPrice) {
-        this.bread = bread;
-        this.meat = meat;
+    public Burger(String name, String bread, String meat, ArrayList<String> toppings, ArrayList<String> burgerToppings, int maxToppings,
+                  double plainPrice, double perToppingPrice) {
+
+        this.name = name;
+        if (Bread.breadTypes.contains(bread)) {
+            this.bread = bread;
+        }
+        else {
+            System.out.println("We don't have any " + bread + " bread.");
+        }
+        if (Meat.meatTypes.contains(meat)) {
+            this.meat = meat;
+        }
+        else {
+            System.out.println("We don't have any " + meat + ".");
+        }
+        this.possibleToppings = toppings;
+        this.burgerToppings = burgerToppings;
         this.maxToppings = maxToppings;
         this.plainPrice = plainPrice;
         this.perToppingPrice = perToppingPrice;
     }
 
-    public String plainBurgerPrice() {
-        return "$" + plainPrice;
+    public double getPlainPrice() {
+        return this.plainPrice;
     }
 
-    public String totalBurgerPrice() {
-        double price = plainPrice + (toppingsAdded * perToppingPrice);
-        return "$" + price;
+    public double getPerToppingPrice() {
+        return this.perToppingPrice;
     }
 
-    public void addTopping(String topping) {
-        if (toppingsAdded < maxToppings) {
-            burgerToppings.add(topping);
-            System.out.println("Added " + topping + " to your burger.");
-            toppingsAdded++;
-        }
-        else {
-            System.out.println("You cannot add any more toppings");
-        }
-    }
-
-    public void showBurger() {
-        System.out.println("Your burger has " + this.bread.bread + " bread and a " +this.meat.meat + " patty with the following toppings: " + this.burgerToppings.toString());
+    public double calcPrice() {
+        return this.plainPrice + (this.perToppingPrice * this.burgerToppings.size());
     }
 }

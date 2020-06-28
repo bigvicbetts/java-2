@@ -1,6 +1,11 @@
 package burger_shop;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Side {
 
-    String side = "fries";
+    static ArrayList<String> sideOptions = new ArrayList<>(Arrays.asList("chips", "fries", "apple pie", "onion rings",
+            "apple slices"));
+    static double price = 1.25;
 }

@@ -4,12 +4,14 @@ public class Main {
     public static void main(String[] args) {
         //main execution of the burger shop goes here.  This is the "entry point" of your application
 
-        PlainBurger burger = new PlainBurger(new Bread(), new Meat());
-        System.out.println(burger.totalBurgerPrice());
-        burger.addTopping("cheese");
-        burger.addTopping("pickles");
-        burger.addTopping("cheese");
-        System.out.println(burger.totalBurgerPrice());
-        burger.showBurger();
+        burger_shop.Order myOrder = new burger_shop.Order(new burger_shop.Meal("white", "beef", "Diet Coke"));
+        myOrder.addBurger(new burger_shop.DeluxeBurger("wheat", "turkey"));
+        myOrder.addToppings("pickles", "cheese");
+        myOrder.addToppings("bacon", "lettuce");
+        myOrder.addSides("fries", "apple slices");
+        myOrder.addDrink("water", "milk");
+        myOrder.purchaseOrder();
+
+
     }
 }
